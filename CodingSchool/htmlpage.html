@@ -14,13 +14,50 @@
                 return response.text();
             }).then(function (text) {
                 //set result
-                document.querySelector('#result').innerHTML = text;
+                const result = document.querySelector('#result');
+                result.innerHTML = text;
+                result.style.color = text;
             });
         }
     </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16pt;
+        }
+        .content {
+            margin: auto;
+            width: 200px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #index {
+            width: 80px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-left: 5px;
+            border-radius: 8px;
+            padding: 12px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <input id="index" /><button onclick="getColor()">Get Color</button>
-    <div id="result"></div>
+    <div class="content">
+        <label>Enter color index</label><br />
+        <input id="index" /><button onclick="getColor()">Get Color</button>
+        <div id="result">&nbsp;</div>
+    </div>
 </body>
 </html>
