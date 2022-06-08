@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function getColor() {
+            //Get input value
+            const value = document.querySelector('#index').value;
+
+            //call api
+            fetch(`/color?index=${value}`).then(function (response) {
+                //return result as text
+                return response.text();
+            }).then(function (text) {
+                //Set result
+                document.querySelector('#result').innerHTML = text;
+            });
+        }
+    </script>
+</head>
+<body>
+    <input id="index" /><button onclick="getColor()">Get Color</button>
+    <div id="result"></div>
+</body>
+</html>
