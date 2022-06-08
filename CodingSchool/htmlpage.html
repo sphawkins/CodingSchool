@@ -5,7 +5,7 @@
     <title></title>
     <script>
         function getColor() {
-            //Get input value
+            //get input value
             const value = document.querySelector('#index').value;
 
             //call api
@@ -13,7 +13,7 @@
                 //return result as text
                 return response.text();
             }).then(function (text) {
-                //Set result
+                //set result
                 document.querySelector('#result').innerHTML = text;
             });
         }
