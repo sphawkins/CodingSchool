@@ -4,12 +4,10 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("", (HttpContext context) =>
+app.MapGet("/", (HttpContext context) =>
 {
-    var html = System.IO.File.ReadAllText("htmlpage.html");
     context.Response.ContentType = MediaTypeNames.Text.Html;
-    context.Response.ContentLength = Encoding.UTF8.GetByteCount(html);
-    return context.Response.WriteAsync(html);
+    return context.Response.WriteAsync(File.ReadAllText("htmlpage.html"));
 });
 
 app.MapGet("/color", (int index) =>
