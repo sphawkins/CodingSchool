@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using System.Net.Mime;
 using System.Text;
 
@@ -12,20 +13,24 @@ app.MapGet("/", (HttpContext context) =>
 
 app.MapGet("/color", (int index) =>
 {
-    switch (index)
+    string? returnValue = "Unknown";
+    try
     {
-        case 1: return "Red";
-        case 2: return "Orange";
-        case 3: return "Black";
-        case 4: return "Blue";
-        case 5: return "Purple";
-        case 6: return "Green";
-        case 7: return "Brown";
-        case 8: return "Yellow";
-        case 9: return "White";
-        case 10: return "Gray";
+        var connetionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CodingSchool;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        var connection = new SqlConnection(connetionString);
+        connection.Open();
+        var cmd = new SqlCommand($"select Color from Colors where Id = {index}", connection);
+        var scalar = cmd.ExecuteScalar();
+        if (scalar != null)
+        {
+            returnValue = scalar as string;
+        }
     }
-    return "Unknown";
+    catch (Exception ex)
+    {
+        returnValue = "Error";
+    }
+    return returnValue;
 });
 
 app.Run();
