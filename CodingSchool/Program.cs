@@ -1,3 +1,4 @@
+using CodingSchool;
 using System.Net.Mime;
 using System.Text;
 
@@ -10,20 +11,17 @@ app.MapGet("/", (HttpContext context) =>
     return context.Response.WriteAsync(File.ReadAllText("htmlpage.html"));
 });
 
-app.MapGet("/color", (int index) =>
+app.MapGet("/color", async (int index) =>
 {
-    switch (index)
+    var client = new HttpClient();
+
+    var path = $"http://dev035:3022/index/{index}";
+
+    HttpResponseMessage response = await client.GetAsync(path);
+    if (response.IsSuccessStatusCode)
     {
-        case 1: return "Red";
-        case 2: return "Orange";
-        case 3: return "Black";
-        case 4: return "Blue";
-        case 5: return "Purple";
-        case 6: return "Green";
-        case 7: return "Brown";
-        case 8: return "Yellow";
-        case 9: return "White";
-        case 10: return "Gray";
+        var data = await response.Content.ReadFromJsonAsync<DataResponse>();
+        return data != null ? data.Color : "Unknown";
     }
     return "Unknown";
 });
